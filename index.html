@@ -536,41 +536,56 @@
                 return;
             }
 
-            // Replace this URL with your actual data endpoint
-            var webhookUrl = 'YOUR_WEBHOOK_URL_HERE';
+            // Make.com Webhook URL - Replace with your actual webhook URL from Make
+            var MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/lz3aev2xdkjabwa5yulafo4jey5ta7vv';
             
-            // For Google Sheets integration, replace with your Google Apps Script URL
-            // var webhookUrl = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
-            
-            // For Airtable integration, replace with your Airtable API endpoint
-            // var webhookUrl = 'https://api.airtable.com/v0/YOUR_BASE_ID/YOUR_TABLE_NAME';
+            // Check if webhook URL is configured
+            if (MAKE_WEBHOOK_URL === 'https://hook.eu2.make.com/lz3aev2xdkjabwa5yulafo4jey5ta7vv') {
+                showStatus('Please configure Make webhook URL first', 'error');
+                console.log('Make webhook URL needed. Please update the webhook URL in the code.');
+                return;
+            }
 
-            showStatus('Submitting quote...', 'success');
+            // Prepare data for Make webhook
+            var webhookData = {
+                clientName: calculationData.clientName,
+                clientEmail: calculationData.clientEmail || '',
+                tier: calculationData.tier,
+                tierName: calculationData.tierName,
+                transactions: calculationData.transactions,
+                statements: calculationData.statements,
+                transactionCost: calculationData.transactionCost,
+                statementCost: calculationData.statementCost,
+                subtotal: calculationData.subtotal,
+                discountAmount: calculationData.discountAmount,
+                totalCost: calculationData.totalCost,
+                dateSubmitted: new Date().toISOString(),
+                timestamp: calculationData.timestamp
+            };
 
-            // Simulate submission (replace with actual API call)
-            setTimeout(function() {
-                // Example with fetch API (uncomment and modify for real implementation)
-                /*
-                fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(calculationData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    showStatus('Quote submitted successfully!', 'success');
-                })
-                .catch(error => {
-                    showStatus('Error submitting quote. Please try again.', 'error');
-                });
-                */
-                
-                // For demo purposes, show success message
-                showStatus('Quote submitted successfully! (Demo mode)', 'success');
-                console.log('Quote data:', calculationData);
-            }, 1000);
+            showStatus('Submitting quote via Make automation...', 'success');
+
+            fetch(MAKE_WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(webhookData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Make webhook request failed with status: ' + response.status);
+                }
+                return response.text(); // Make webhooks often return text, not JSON
+            })
+            .then(data => {
+                showStatus('Quote submitted successfully via Make!', 'success');
+                console.log('Make webhook response:', data);
+            })
+            .catch(error => {
+                showStatus('Error submitting via Make: ' + error.message, 'error');
+                console.error('Make webhook error:', error);
+            });
         }
 
         function showStatus(message, type) {
