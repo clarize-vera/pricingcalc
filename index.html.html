@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #19224b 0%, #2a62ad 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calculator-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #19224b;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #19224b, #2a62ad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .client-info {
+            margin-bottom: 30px;
+        }
+
+        .tier-selection {
+            margin-bottom: 30px;
+        }
+
+        .tier-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tier-btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tier-btn.gold {
+            background: #19224b;
+            color: #ffffff;
+        }
+
+        .tier-btn.silver {
+            background: #2a62ad;
+            color: #ffffff;
+        }
+
+        .tier-btn.bronze {
+            background: #19224b;
+            color: #ffffff;
+        }
+
+        .tier-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .tier-btn.active {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid #ffffff;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #19224b;
+            font-size: 1.1rem;
+        }
+
+        input[type="text"], input[type="number"], input[type="email"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus {
+            outline: none;
+            border-color: #2a62ad;
+            box-shadow: 0 0 0 3px rgba(42, 98, 173, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-calculate {
+            background: #2a62ad;
+            color: #ffffff;
+        }
+
+        .btn-calculate:hover {
+            background: #1e4a8c;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-pdf {
+            background: #38a169;
+            color: #ffffff;
+        }
+
+        .btn-pdf:hover {
+            background: #2f855a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-submit {
+            background: #19224b;
+            color: #ffffff;
+        }
+
+        .btn-submit:hover {
+            background: #0f1629;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .results {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .results.visible {
+            opacity: 1;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #19224b;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #19224b;
+        }
+
+        .result-value {
+            font-weight: 700;
+            color: #19224b;
+        }
+
+        .savings {
+            color: #38a169;
+            font-weight: 700;
+        }
+
+        .tier-info {
+            background: rgba(42, 98, 173, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #2a62ad;
+        }
+
+        .tier-info h3 {
+            color: #19224b;
+            margin-bottom: 10px;
+        }
+
+        .tier-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .tier-details:last-child {
+            margin-bottom: 0;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .status-message.success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+
+        .status-message.error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tier-buttons, .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>💰 Pricing Calculator</h1>
+        
+        <div class="client-info">
+            <div class="input-group">
+                <label for="client-name">Client Name *:</label>
+                <input type="text" id="client-name" placeholder="Enter client name" required>
+            </div>
+            <div class="input-group">
+                <label for="client-email">Email Address:</label>
+                <input type="email" id="client-email" placeholder="Enter email address (optional)">
+            </div>
+        </div>
+
+        <div class="tier-selection">
+            <div class="tier-buttons">
+                <button class="tier-btn gold active" onclick="selectTier('gold')">Gold</button>
+                <button class="tier-btn silver" onclick="selectTier('silver')">Silver</button>
+                <button class="tier-btn bronze" onclick="selectTier('bronze')">Bronze</button>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="transactions">Number of Transactions:</label>
+            <input type="number" id="transactions" placeholder="Enter number of transactions" min="0" value="0">
+        </div>
+
+        <div class="input-group">
+            <label for="statements">Number of Supplier Statements:</label>
+            <input type="number" id="statements" placeholder="Enter number of statements" min="0" value="0">
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-calculate" onclick="calculateCosts()">Calculate</button>
+        </div>
+
+        <div class="tier-info">
+            <h3 id="tier-name">Gold Tier</h3>
+            <div class="tier-details">
+                <span>Per Transaction:</span>
+                <span id="tier-transaction">26</span>
+            </div>
+            <div class="tier-details">
+                <span>Supplier Recon to Statement:</span>
+                <span id="tier-statement">160</span>
+            </div>
+            <div class="tier-details">
+                <span>Engine Room Fee Discount:</span>
+                <span class="savings" id="tier-discount">-20%</span>
+            </div>
+        </div>
+
+        <div class="results" id="results">
+            <div class="result-item">
+                <span class="result-label">Transaction Costs:</span>
+                <span class="result-value" id="transaction-cost">0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Statement Costs:</span>
+                <span class="result-value" id="statement-cost">0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Subtotal:</span>
+                <span class="result-value" id="subtotal">0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Engine Room Discount (-20%):</span>
+                <span class="result-value savings" id="discount-amount">0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Total Cost:</span>
+                <span class="result-value" id="total-cost">0</span>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-pdf" onclick="downloadPDF()">Download PDF</button>
+            <button class="btn btn-submit" onclick="submitData()">Submit Quote</button>
+        </div>
+
+        <div class="status-message" id="status-message"></div>
+    </div>
+
+    <script>
+        var tiers = {
+            gold: {
+                name: 'Gold Tier',
+                transaction: 26,
+                statement: 160,
+                discount: 0.20
+            },
+            silver: {
+                name: 'Silver Tier',
+                transaction: 22,
+                statement: 160,
+                discount: 0.20
+            },
+            bronze: {
+                name: 'Bronze Tier',
+                transaction: 18,
+                statement: 160,
+                discount: 0.20
+            }
+        };
+
+        var currentTier = 'gold';
+        var calculationData = {};
+
+        function selectTier(tier) {
+            currentTier = tier;
+            
+            // Update button states
+            var buttons = document.querySelectorAll('.tier-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            
+            var activeButton = document.querySelector('.tier-btn.' + tier);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+            
+            // Update tier info
+            var tierData = tiers[tier];
+            var tierNameEl = document.getElementById('tier-name');
+            var tierTransactionEl = document.getElementById('tier-transaction');
+            var tierStatementEl = document.getElementById('tier-statement');
+            var tierDiscountEl = document.getElementById('tier-discount');
+            
+            if (tierNameEl) tierNameEl.textContent = tierData.name;
+            if (tierTransactionEl) tierTransactionEl.textContent = tierData.transaction;
+            if (tierStatementEl) tierStatementEl.textContent = tierData.statement;
+            if (tierDiscountEl) tierDiscountEl.textContent = '-' + (tierData.discount * 100) + '%';
+        }
+
+        function calculateCosts() {
+            var clientName = document.getElementById('client-name').value;
+            if (!clientName.trim()) {
+                showStatus('Please enter a client name', 'error');
+                return;
+            }
+
+            var transactionsInput = document.getElementById('transactions');
+            var statementsInput = document.getElementById('statements');
+            
+            var transactions = parseInt(transactionsInput ? transactionsInput.value : '0') || 0;
+            var statements = parseInt(statementsInput ? statementsInput.value : '0') || 0;
+            var tierData = tiers[currentTier];
+            
+            var transactionCost = transactions * tierData.transaction;
+            var statementCost = statements * tierData.statement;
+            var subtotal = transactionCost + statementCost;
+            var discountAmount = subtotal * tierData.discount;
+            var totalCost = subtotal - discountAmount;
+            
+            // Store calculation data
+            calculationData = {
+                clientName: clientName,
+                clientEmail: document.getElementById('client-email').value,
+                tier: currentTier,
+                tierName: tierData.name,
+                transactions: transactions,
+                statements: statements,
+                transactionCost: transactionCost,
+                statementCost: statementCost,
+                subtotal: subtotal,
+                discountAmount: discountAmount,
+                totalCost: totalCost,
+                timestamp: new Date().toISOString()
+            };
+            
+            var transactionCostEl = document.getElementById('transaction-cost');
+            var statementCostEl = document.getElementById('statement-cost');
+            var subtotalEl = document.getElementById('subtotal');
+            var discountAmountEl = document.getElementById('discount-amount');
+            var totalCostEl = document.getElementById('total-cost');
+            
+            if (transactionCostEl) transactionCostEl.textContent = transactionCost.toLocaleString();
+            if (statementCostEl) statementCostEl.textContent = statementCost.toLocaleString();
+            if (subtotalEl) subtotalEl.textContent = subtotal.toLocaleString();
+            if (discountAmountEl) discountAmountEl.textContent = '-' + discountAmount.toLocaleString();
+            if (totalCostEl) totalCostEl.textContent = totalCost.toLocaleString();
+
+            // Show results
+            document.getElementById('results').classList.add('visible');
+            showStatus('Calculation completed successfully!', 'success');
+        }
+
+        function downloadPDF() {
+            if (!calculationData.clientName) {
+                showStatus('Please calculate costs first', 'error');
+                return;
+            }
+
+            try {
+                var { jsPDF } = window.jspdf;
+                var doc = new jsPDF();
+                
+                // Header
+                doc.setFontSize(24);
+                doc.setTextColor(25, 34, 75);
+                doc.text('Pricing Quote', 20, 30);
+                
+                // Client Info
+                doc.setFontSize(16);
+                doc.setTextColor(0, 0, 0);
+                doc.text('Client: ' + calculationData.clientName, 20, 50);
+                if (calculationData.clientEmail) {
+                    doc.text('Email: ' + calculationData.clientEmail, 20, 65);
+                }
+                doc.text('Date: ' + new Date().toLocaleDateString(), 20, 80);
+                
+                // Tier Info
+                doc.setFontSize(18);
+                doc.setTextColor(42, 98, 173);
+                doc.text('Selected Tier: ' + calculationData.tierName, 20, 105);
+                
+                // Details
+                doc.setFontSize(12);
+                doc.setTextColor(0, 0, 0);
+                doc.text('Transactions: ' + calculationData.transactions.toLocaleString(), 20, 125);
+                doc.text('Statements: ' + calculationData.statements.toLocaleString(), 20, 140);
+                
+                // Costs
+                doc.setFontSize(14);
+                doc.text('Cost Breakdown:', 20, 165);
+                doc.setFontSize(12);
+                doc.text('Transaction Costs: $' + calculationData.transactionCost.toLocaleString(), 30, 180);
+                doc.text('Statement Costs: $' + calculationData.statementCost.toLocaleString(), 30, 195);
+                doc.text('Subtotal: $' + calculationData.subtotal.toLocaleString(), 30, 210);
+                doc.text('Discount (20%): -$' + calculationData.discountAmount.toLocaleString(), 30, 225);
+                
+                // Total
+                doc.setFontSize(16);
+                doc.setTextColor(25, 34, 75);
+                doc.text('Total Cost: $' + calculationData.totalCost.toLocaleString(), 30, 245);
+                
+                // Save PDF
+                doc.save('pricing-quote-' + calculationData.clientName.replace(/[^a-zA-Z0-9]/g, '-') + '.pdf');
+                showStatus('PDF downloaded successfully!', 'success');
+            } catch (error) {
+                showStatus('Error generating PDF. Please try again.', 'error');
+            }
+        }
+
+        function submitData() {
+            if (!calculationData.clientName) {
+                showStatus('Please calculate costs first', 'error');
+                return;
+            }
+
+            // Replace this URL with your actual data endpoint
+            var webhookUrl = 'YOUR_WEBHOOK_URL_HERE';
+            
+            // For Google Sheets integration, replace with your Google Apps Script URL
+            // var webhookUrl = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+            
+            // For Airtable integration, replace with your Airtable API endpoint
+            // var webhookUrl = 'https://api.airtable.com/v0/YOUR_BASE_ID/YOUR_TABLE_NAME';
+
+            showStatus('Submitting quote...', 'success');
+
+            // Simulate submission (replace with actual API call)
+            setTimeout(function() {
+                // Example with fetch API (uncomment and modify for real implementation)
+                /*
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(calculationData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showStatus('Quote submitted successfully!', 'success');
+                })
+                .catch(error => {
+                    showStatus('Error submitting quote. Please try again.', 'error');
+                });
+                */
+                
+                // For demo purposes, show success message
+                showStatus('Quote submitted successfully! (Demo mode)', 'success');
+                console.log('Quote data:', calculationData);
+            }, 1000);
+        }
+
+        function showStatus(message, type) {
+            var statusEl = document.getElementById('status-message');
+            statusEl.textContent = message;
+            statusEl.className = 'status-message ' + type;
+            statusEl.style.display = 'block';
+            
+            setTimeout(function() {
+                statusEl.style.display = 'none';
+            }, 3000);
+        }
+
+        // Initialize calculator when page loads
+        window.onload = function() {
+            selectTier('gold');
+        };
+    </script>
+</body>
+</html>
