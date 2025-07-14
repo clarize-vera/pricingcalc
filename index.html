@@ -570,7 +570,7 @@
         var calculationData = {};
 
         function validateEmail(email) {
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+R/;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
 
@@ -585,7 +585,7 @@
             for (var i = 1; i <= numClients; i++) {
                 var row = document.createElement('tr');
                 row.innerHTML = `
-                    <td><input type="text" class="client-name" placeholder="Client R{i} name" required></td>
+                    <td><input type="text" class="client-name" placeholder="Client ${i} name" required></td>
                     <td>
                         <select class="client-tier tier-select">
                             <option value="gold">Gold</option>
@@ -863,7 +863,7 @@
                 return response.text();
             })
             .then(data => {
-                showStatus('Quote submitted successfully via Make!', 'success');
+                showStatus('Quote submitted successfully !', 'success');
                 console.log('Make webhook response:', data);
             })
             .catch(error => {
