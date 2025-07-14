@@ -774,6 +774,8 @@
                         client.statements,
                         client.transactionCost,
                         client.statementCost,
+                        client.subtotal,
+                        client.discountAmount,
                         client.totalCost
                     ];
                     csvContent += row.join(',') + '\n';
@@ -787,6 +789,8 @@
                     calculationData.clients.reduce(function(sum, client) { return sum + client.statements; }, 0),
                     calculationData.totals.transactionCost,
                     calculationData.totals.statementCost,
+                    calculationData.totals.subtotal,
+                    calculationData.totals.discountAmount,
                     calculationData.totals.grandTotal
                 ];
                 csvContent += totalRow.join(',') + '\n';
