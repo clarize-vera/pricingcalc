@@ -200,12 +200,12 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
-        .btn-pdf {
+        .btn-csv {
             background: #38a169;
             color: #ffffff;
         }
 
-        .btn-pdf:hover {
+        .btn-csv:hover {
             background: #2f855a;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -413,7 +413,6 @@
             }
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="calculator-container">
@@ -539,7 +538,7 @@
         </div>
 
         <div class="button-group">
-            <button class="btn btn-pdf" onclick="downloadPDF()">Download PDF</button>
+            <button class="btn btn-csv" onclick="downloadCSV()">Download CSV</button>
             <button class="btn btn-submit" onclick="submitData()">Submit Quote</button>
         </div>
 
@@ -756,55 +755,56 @@
             resultsBody.appendChild(totalRow);
         }
 
-        function downloadPDF() {
+        function downloadCSV() {
             if (!calculationData.companyName) {
                 showStatus('Please calculate costs first', 'error');
                 return;
             }
 
             try {
-                var { jsPDF } = window.jspdf;
-                var doc = new jsPDF();
+                // Create CSV content with the requested columns
+                var csvContent = 'Client Name,Tier,Transactions,Supplier Statements,Transaction Cost,Supplier Recon Cost,Total\n';
                 
-                // Header
-                doc.setFontSize(20);
-                doc.setTextColor(25, 34, 75);
-                doc.text('Pricing Quote', 20, 25);
-                
-                // Company Info
-                doc.setFontSize(12);
-                doc.setTextColor(0, 0, 0);
-                doc.text('Company: ' + calculationData.companyName, 20, 40);
-                doc.text('Email: ' + calculationData.companyEmail, 20, 50);
-                doc.text('Date: ' + new Date().toLocaleDateString(), 20, 60);
-                
-                // Client Details
-                doc.setFontSize(12);
-                doc.setTextColor(0, 0, 0);
-                var yPos = 75;
-                
-                doc.text('Client Details:', 20, yPos);
-                yPos += 10;
-                
+                // Add client data rows
                 calculationData.clients.forEach(function(client) {
-                    doc.text(client.name + ' (' + client.tierName + '):', 25, yPos);
-                    yPos += 8;
-                    doc.text('  Transactions: ' + client.transactions.toLocaleString() + ' | Statements: ' + client.statements.toLocaleString(), 30, yPos);
-                    yPos += 8;
-                    doc.text('  Total Cost: R' + client.totalCost.toLocaleString(), 30, yPos);
-                    yPos += 12;
+                    var row = [
+                        '"' + client.name + '"',
+                        client.tier.charAt(0).toUpperCase() + client.tier.slice(1),
+                        client.transactions,
+                        client.statements,
+                        client.transactionCost,
+                        client.statementCost,
+                        client.totalCost
+                    ];
+                    csvContent += row.join(',') + '\n';
                 });
                 
-                // Grand Total
-                doc.setFontSize(16);
-                doc.setTextColor(25, 34, 75);
-                doc.text('Grand Total: R' + calculationData.totals.grandTotal.toLocaleString(), 20, yPos + 10);
+                // Add totals row
+                var totalRow = [
+                    '"TOTAL"',
+                    '-',
+                    calculationData.clients.reduce(function(sum, client) { return sum + client.transactions; }, 0),
+                    calculationData.clients.reduce(function(sum, client) { return sum + client.statements; }, 0),
+                    calculationData.totals.transactionCost,
+                    calculationData.totals.statementCost,
+                    calculationData.totals.grandTotal
+                ];
+                csvContent += totalRow.join(',') + '\n';
                 
-                // Save PDF
-                doc.save('pricing-quote-' + calculationData.companyName.replace(/[^a-zA-Z0-9]/g, '-') + '.pdf');
-                showStatus('PDF downloaded successfully!', 'success');
+                // Create and download the CSV file
+                var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                var link = document.createElement('a');
+                var url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'pricing-quote-' + calculationData.companyName.replace(/[^a-zA-Z0-9]/g, '-') + '.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showStatus('CSV downloaded successfully!', 'success');
             } catch (error) {
-                showStatus('Error generating PDF. Please try again.', 'error');
+                showStatus('Error generating CSV. Please try again.', 'error');
             }
         }
 
