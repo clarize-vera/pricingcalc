@@ -15,7 +15,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #19224b 0%, #2a62ad 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -24,19 +24,21 @@
         .calculator-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
+            border-radius: 15px;
+            padding: 25px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
+            max-width: 1100px;
             width: 100%;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         h1 {
             text-align: center;
             color: #19224b;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-size: 2rem;
             font-weight: 700;
             background: linear-gradient(135deg, #19224b, #2a62ad);
             -webkit-background-clip: text;
@@ -44,61 +46,23 @@
             background-clip: text;
         }
 
-        .client-info {
-            margin-bottom: 30px;
+        .company-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
         }
 
-        .tier-selection {
-            margin-bottom: 30px;
-        }
-
-        .tier-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tier-btn {
-            flex: 1;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .tier-btn.gold {
-            background: #19224b;
-            color: #ffffff;
-        }
-
-        .tier-btn.silver {
-            background: #2a62ad;
-            color: #ffffff;
-        }
-
-        .tier-btn.bronze {
-            background: #19224b;
-            color: #ffffff;
-        }
-
-        .tier-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .tier-btn.active {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border: 2px solid #ffffff;
+        .clients-setup {
+            margin-bottom: 25px;
         }
 
         .input-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+        }
+
+        .input-group.full-width {
+            grid-column: 1 / -1;
         }
 
         label {
@@ -106,15 +70,15 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: #19224b;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         input[type="text"], input[type="number"], input[type="email"] {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            border-radius: 8px;
+            font-size: 1rem;
             transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.8);
         }
@@ -125,18 +89,99 @@
             box-shadow: 0 0 0 3px rgba(42, 98, 173, 0.1);
         }
 
+        input.error {
+            border-color: #e53e3e;
+            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+        }
+
+        .clients-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .clients-table th,
+        .clients-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .clients-table th {
+            background: #f7fafc;
+            color: #19224b;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .clients-table input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .clients-table input:focus {
+            border-color: #2a62ad;
+            outline: none;
+        }
+
+        .clients-table select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .clients-table select:focus {
+            border-color: #2a62ad;
+            outline: none;
+        }
+
+        .tier-select {
+            background: white;
+            font-weight: 600;
+        }
+
+        .tier-select option[value="gold"] {
+            background: #19224b;
+            color: white;
+        }
+
+        .tier-select option[value="silver"] {
+            background: #2a62ad;
+            color: white;
+        }
+
+        .tier-select option[value="bronze"] {
+            background: #8b4513;
+            color: white;
+        }
+
+        .clients-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
         .button-group {
             display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         .btn {
             flex: 1;
-            padding: 15px 20px;
+            padding: 12px 15px;
             border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -152,7 +197,7 @@
         .btn-calculate:hover {
             background: #1e4a8c;
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         .btn-pdf {
@@ -163,7 +208,7 @@
         .btn-pdf:hover {
             background: #2f855a;
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         .btn-submit {
@@ -174,14 +219,14 @@
         .btn-submit:hover {
             background: #0f1629;
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         .results {
             background: linear-gradient(135deg, #f7fafc, #edf2f7);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 30px;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
             border: 1px solid rgba(226, 232, 240, 0.8);
             opacity: 0.5;
             transition: opacity 0.3s ease;
@@ -191,29 +236,28 @@
             opacity: 1;
         }
 
-        .result-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
             margin-bottom: 15px;
-            padding: 12px 0;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 10px;
+            text-align: left;
             border-bottom: 1px solid rgba(226, 232, 240, 0.5);
         }
 
-        .result-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            font-weight: 700;
-            font-size: 1.2rem;
+        .results-table th {
+            background: rgba(42, 98, 173, 0.1);
             color: #19224b;
-        }
-
-        .result-label {
             font-weight: 600;
-            color: #19224b;
+            font-size: 0.9rem;
         }
 
-        .result-value {
+        .results-table .total-row {
+            background: rgba(25, 34, 75, 0.1);
             font-weight: 700;
             color: #19224b;
         }
@@ -225,22 +269,68 @@
 
         .tier-info {
             background: rgba(42, 98, 173, 0.1);
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
             border-left: 4px solid #2a62ad;
         }
 
         .tier-info h3 {
             color: #19224b;
             margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .tier-pricing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .tier-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .tier-card.gold {
+            border-color: #19224b;
+        }
+
+        .tier-card.silver {
+            border-color: #2a62ad;
+        }
+
+        .tier-card.bronze {
+            border-color: #8b4513;
+        }
+
+        .tier-card h4 {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .tier-card.gold h4 {
+            color: #19224b;
+        }
+
+        .tier-card.silver h4 {
+            color: #2a62ad;
+        }
+
+        .tier-card.bronze h4 {
+            color: #8b4513;
         }
 
         .tier-details {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
         }
 
         .tier-details:last-child {
@@ -248,12 +338,13 @@
         }
 
         .status-message {
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
             text-align: center;
             font-weight: 600;
             display: none;
+            font-size: 0.9rem;
         }
 
         .status-message.success {
@@ -268,17 +359,57 @@
             border: 1px solid #fc8181;
         }
 
+        .tier-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .tier-badge.gold {
+            background: #19224b;
+        }
+
+        .tier-badge.silver {
+            background: #2a62ad;
+        }
+
+        .tier-badge.bronze {
+            background: #8b4513;
+        }
+
         @media (max-width: 768px) {
             .calculator-container {
-                padding: 20px;
+                padding: 15px;
+                margin: 5px;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 1.5rem;
             }
             
-            .tier-buttons, .button-group {
+            .company-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
                 flex-direction: column;
+            }
+            
+            .clients-table {
+                font-size: 0.8rem;
+            }
+            
+            .clients-table th,
+            .clients-table td {
+                padding: 8px;
+            }
+
+            .tier-pricing {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -288,33 +419,49 @@
     <div class="calculator-container">
         <h1>💰 Pricing Calculator</h1>
         
-        <div class="client-info">
+        <div class="company-info">
             <div class="input-group">
-                <label for="client-name">Client Name *:</label>
-                <input type="text" id="client-name" placeholder="Enter client name" required>
+                <label for="company-name">Company Name *:</label>
+                <input type="text" id="company-name" placeholder="Enter company name" required>
             </div>
             <div class="input-group">
-                <label for="client-email">Email Address:</label>
-                <input type="email" id="client-email" placeholder="Enter email address (optional)">
+                <label for="company-email">Email Address *:</label>
+                <input type="email" id="company-email" placeholder="Enter email address" required>
             </div>
         </div>
 
-        <div class="tier-selection">
-            <div class="tier-buttons">
-                <button class="tier-btn gold active" onclick="selectTier('gold')">Gold</button>
-                <button class="tier-btn silver" onclick="selectTier('silver')">Silver</button>
-                <button class="tier-btn bronze" onclick="selectTier('bronze')">Bronze</button>
+        <div class="clients-setup">
+            <div class="input-group">
+                <label for="num-clients">Number of Clients:</label>
+                <input type="number" id="num-clients" placeholder="Enter number of clients" min="1" max="50" value="1" onchange="generateClientTable()">
             </div>
         </div>
 
-        <div class="input-group">
-            <label for="transactions">Number of Transactions:</label>
-            <input type="number" id="transactions" placeholder="Enter number of transactions" min="0" value="0">
-        </div>
-
-        <div class="input-group">
-            <label for="statements">Number of Supplier Statements:</label>
-            <input type="number" id="statements" placeholder="Enter number of statements" min="0" value="0">
+        <div id="clients-table-container">
+            <table class="clients-table">
+                <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Tier</th>
+                        <th>Transactions</th>
+                        <th>Supplier Statements</th>
+                    </tr>
+                </thead>
+                <tbody id="clients-table-body">
+                    <tr>
+                        <td><input type="text" class="client-name" placeholder="Client 1 name" required></td>
+                        <td>
+                            <select class="client-tier tier-select">
+                                <option value="gold">Gold</option>
+                                <option value="silver">Silver</option>
+                                <option value="bronze">Bronze</option>
+                            </select>
+                        </td>
+                        <td><input type="number" class="client-transactions" placeholder="0" min="0" value="0"></td>
+                        <td><input type="number" class="client-statements" placeholder="0" min="0" value="0"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="button-group">
@@ -322,42 +469,72 @@
         </div>
 
         <div class="tier-info">
-            <h3 id="tier-name">Gold Tier</h3>
-            <div class="tier-details">
-                <span>Per Transaction:</span>
-                <span id="tier-transaction">26</span>
-            </div>
-            <div class="tier-details">
-                <span>Supplier Recon to Statement:</span>
-                <span id="tier-statement">160</span>
-            </div>
-            <div class="tier-details">
-                <span>Engine Room Fee Discount:</span>
-                <span class="savings" id="tier-discount">-20%</span>
+            <h3>Tier Pricing Information</h3>
+            <div class="tier-pricing">
+                <div class="tier-card gold">
+                    <h4>Gold Tier</h4>
+                    <div class="tier-details">
+                        <span>Per Transaction:</span>
+                        <span>R26</span>
+                    </div>
+                    <div class="tier-details">
+                        <span>Supplier Recon to Statement:</span>
+                        <span>R160</span>
+                    </div>
+                    <div class="tier-details">
+                        <span>Engine Room Fee Discount:</span>
+                        <span class="savings">-20%</span>
+                    </div>
+                </div>
+                <div class="tier-card silver">
+                    <h4>Silver Tier</h4>
+                    <div class="tier-details">
+                        <span>Per Transaction:</span>
+                        <span>R22</span>
+                    </div>
+                    <div class="tier-details">
+                        <span>Supplier Recon to Statement:</span>
+                        <span>R160</span>
+                    </div>
+                    <div class="tier-details">
+                        <span>Engine Room Fee Discount:</span>
+                        <span class="savings">-20%</span>
+                    </div>
+                </div>
+                <div class="tier-card bronze">
+                    <h4>Bronze Tier</h4>
+                    <div class="tier-details">
+                        <span>Per Transaction:</span>
+                        <span>R18</span>
+                    </div>
+                    <div class="tier-details">
+                        <span>Supplier Recon to Statement:</span>
+                        <span>R160</span>
+                    </div>
+                    <div class="tier-details">
+                        <span>Engine Room Fee Discount:</span>
+                        <span class="savings">-20%</span>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="results" id="results">
-            <div class="result-item">
-                <span class="result-label">Transaction Costs:</span>
-                <span class="result-value" id="transaction-cost">0</span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Statement Costs:</span>
-                <span class="result-value" id="statement-cost">0</span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Subtotal:</span>
-                <span class="result-value" id="subtotal">0</span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Engine Room Discount (-20%):</span>
-                <span class="result-value savings" id="discount-amount">0</span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Total Cost:</span>
-                <span class="result-value" id="total-cost">0</span>
-            </div>
+            <table class="results-table" id="results-table">
+                <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>Tier</th>
+                        <th>Transaction Cost</th>
+                        <th>Statement Cost</th>
+                        <th>Subtotal</th>
+                        <th>Discount</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body">
+                </tbody>
+            </table>
         </div>
 
         <div class="button-group">
@@ -390,91 +567,196 @@
             }
         };
 
-        var currentTier = 'gold';
         var calculationData = {};
 
-        function selectTier(tier) {
-            currentTier = tier;
+        function validateEmail(email) {
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+R/;
+            return emailRegex.test(email);
+        }
+
+        function generateClientTable() {
+            var numClients = parseInt(document.getElementById('num-clients').value) || 1;
+            if (numClients < 1) numClients = 1;
+            if (numClients > 50) numClients = 50;
             
-            // Update button states
-            var buttons = document.querySelectorAll('.tier-btn');
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
+            var tbody = document.getElementById('clients-table-body');
+            tbody.innerHTML = '';
+            
+            for (var i = 1; i <= numClients; i++) {
+                var row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><input type="text" class="client-name" placeholder="Client R{i} name" required></td>
+                    <td>
+                        <select class="client-tier tier-select">
+                            <option value="gold">Gold</option>
+                            <option value="silver">Silver</option>
+                            <option value="bronze">Bronze</option>
+                        </select>
+                    </td>
+                    <td><input type="number" class="client-transactions" placeholder="0" min="0" value="0"></td>
+                    <td><input type="number" class="client-statements" placeholder="0" min="0" value="0"></td>
+                `;
+                tbody.appendChild(row);
             }
-            
-            var activeButton = document.querySelector('.tier-btn.' + tier);
-            if (activeButton) {
-                activeButton.classList.add('active');
-            }
-            
-            // Update tier info
-            var tierData = tiers[tier];
-            var tierNameEl = document.getElementById('tier-name');
-            var tierTransactionEl = document.getElementById('tier-transaction');
-            var tierStatementEl = document.getElementById('tier-statement');
-            var tierDiscountEl = document.getElementById('tier-discount');
-            
-            if (tierNameEl) tierNameEl.textContent = tierData.name;
-            if (tierTransactionEl) tierTransactionEl.textContent = tierData.transaction;
-            if (tierStatementEl) tierStatementEl.textContent = tierData.statement;
-            if (tierDiscountEl) tierDiscountEl.textContent = '-' + (tierData.discount * 100) + '%';
         }
 
         function calculateCosts() {
-            var clientName = document.getElementById('client-name').value;
-            if (!clientName.trim()) {
-                showStatus('Please enter a client name', 'error');
+            var companyName = document.getElementById('company-name').value;
+            var companyEmail = document.getElementById('company-email').value;
+            
+            // Clear previous error states
+            document.getElementById('company-name').classList.remove('error');
+            document.getElementById('company-email').classList.remove('error');
+            
+            // Validate company name
+            if (!companyName.trim()) {
+                document.getElementById('company-name').classList.add('error');
+                showStatus('Please enter a company name', 'error');
                 return;
             }
-
-            var transactionsInput = document.getElementById('transactions');
-            var statementsInput = document.getElementById('statements');
             
-            var transactions = parseInt(transactionsInput ? transactionsInput.value : '0') || 0;
-            var statements = parseInt(statementsInput ? statementsInput.value : '0') || 0;
-            var tierData = tiers[currentTier];
+            // Validate email
+            if (!companyEmail.trim()) {
+                document.getElementById('company-email').classList.add('error');
+                showStatus('Please enter an email address', 'error');
+                return;
+            }
             
-            var transactionCost = transactions * tierData.transaction;
-            var statementCost = statements * tierData.statement;
-            var subtotal = transactionCost + statementCost;
-            var discountAmount = subtotal * tierData.discount;
-            var totalCost = subtotal - discountAmount;
+            if (!validateEmail(companyEmail)) {
+                document.getElementById('company-email').classList.add('error');
+                showStatus('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            // Get client data
+            var clientNames = document.querySelectorAll('.client-name');
+            var clientTiers = document.querySelectorAll('.client-tier');
+            var clientTransactions = document.querySelectorAll('.client-transactions');
+            var clientStatements = document.querySelectorAll('.client-statements');
+            
+            var clientsData = [];
+            var hasEmptyClientName = false;
+            
+            for (var i = 0; i < clientNames.length; i++) {
+                var clientName = clientNames[i].value.trim();
+                if (!clientName) {
+                    clientNames[i].classList.add('error');
+                    hasEmptyClientName = true;
+                    continue;
+                } else {
+                    clientNames[i].classList.remove('error');
+                }
+                
+                var clientTier = clientTiers[i].value;
+                var transactions = parseInt(clientTransactions[i].value) || 0;
+                var statements = parseInt(clientStatements[i].value) || 0;
+                
+                var tierData = tiers[clientTier];
+                var transactionCost = transactions * tierData.transaction;
+                var statementCost = statements * tierData.statement;
+                var subtotal = transactionCost + statementCost;
+                var discountAmount = subtotal * tierData.discount;
+                var totalCost = subtotal - discountAmount;
+                
+                clientsData.push({
+                    name: clientName,
+                    tier: clientTier,
+                    tierName: tierData.name,
+                    transactions: transactions,
+                    statements: statements,
+                    transactionCost: transactionCost,
+                    statementCost: statementCost,
+                    subtotal: subtotal,
+                    discountAmount: discountAmount,
+                    totalCost: totalCost
+                });
+            }
+            
+            if (hasEmptyClientName) {
+                showStatus('Please enter names for all clients', 'error');
+                return;
+            }
+            
+            // Calculate totals
+            var grandTotal = clientsData.reduce(function(sum, client) {
+                return sum + client.totalCost;
+            }, 0);
+            
+            var totalTransactionCost = clientsData.reduce(function(sum, client) {
+                return sum + client.transactionCost;
+            }, 0);
+            
+            var totalStatementCost = clientsData.reduce(function(sum, client) {
+                return sum + client.statementCost;
+            }, 0);
+            
+            var totalSubtotal = clientsData.reduce(function(sum, client) {
+                return sum + client.subtotal;
+            }, 0);
+            
+            var totalDiscountAmount = clientsData.reduce(function(sum, client) {
+                return sum + client.discountAmount;
+            }, 0);
             
             // Store calculation data
             calculationData = {
-                clientName: clientName,
-                clientEmail: document.getElementById('client-email').value,
-                tier: currentTier,
-                tierName: tierData.name,
-                transactions: transactions,
-                statements: statements,
-                transactionCost: transactionCost,
-                statementCost: statementCost,
-                subtotal: subtotal,
-                discountAmount: discountAmount,
-                totalCost: totalCost,
+                companyName: companyName,
+                companyEmail: companyEmail,
+                clients: clientsData,
+                totals: {
+                    transactionCost: totalTransactionCost,
+                    statementCost: totalStatementCost,
+                    subtotal: totalSubtotal,
+                    discountAmount: totalDiscountAmount,
+                    grandTotal: grandTotal
+                },
                 timestamp: new Date().toISOString()
             };
             
-            var transactionCostEl = document.getElementById('transaction-cost');
-            var statementCostEl = document.getElementById('statement-cost');
-            var subtotalEl = document.getElementById('subtotal');
-            var discountAmountEl = document.getElementById('discount-amount');
-            var totalCostEl = document.getElementById('total-cost');
+            // Display results
+            displayResults(clientsData, calculationData.totals);
             
-            if (transactionCostEl) transactionCostEl.textContent = transactionCost.toLocaleString();
-            if (statementCostEl) statementCostEl.textContent = statementCost.toLocaleString();
-            if (subtotalEl) subtotalEl.textContent = subtotal.toLocaleString();
-            if (discountAmountEl) discountAmountEl.textContent = '-' + discountAmount.toLocaleString();
-            if (totalCostEl) totalCostEl.textContent = totalCost.toLocaleString();
-
             // Show results
             document.getElementById('results').classList.add('visible');
             showStatus('Calculation completed successfully!', 'success');
         }
 
+        function displayResults(clientsData, totals) {
+            var resultsBody = document.getElementById('results-body');
+            resultsBody.innerHTML = '';
+            
+            // Add client rows
+            clientsData.forEach(function(client) {
+                var row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>R{client.name}</td>
+                    <td><span class="tier-badge R{client.tier}">R{client.tier}</span></td>
+                    <td>RR{client.transactionCost.toLocaleString()}</td>
+                    <td>RR{client.statementCost.toLocaleString()}</td>
+                    <td>RR{client.subtotal.toLocaleString()}</td>
+                    <td class="savings">-RR{client.discountAmount.toLocaleString()}</td>
+                    <td><strong>RR{client.totalCost.toLocaleString()}</strong></td>
+                `;
+                resultsBody.appendChild(row);
+            });
+            
+            // Add totals row
+            var totalRow = document.createElement('tr');
+            totalRow.className = 'total-row';
+            totalRow.innerHTML = `
+                <td><strong>TOTAL</strong></td>
+                <td><strong>-</strong></td>
+                <td><strong>RR{totals.transactionCost.toLocaleString()}</strong></td>
+                <td><strong>RR{totals.statementCost.toLocaleString()}</strong></td>
+                <td><strong>RR{totals.subtotal.toLocaleString()}</strong></td>
+                <td class="savings"><strong>-RR{totals.discountAmount.toLocaleString()}</strong></td>
+                <td><strong>RR{totals.grandTotal.toLocaleString()}</strong></td>
+            `;
+            resultsBody.appendChild(totalRow);
+        }
+
         function downloadPDF() {
-            if (!calculationData.clientName) {
+            if (!calculationData.companyName) {
                 showStatus('Please calculate costs first', 'error');
                 return;
             }
@@ -484,46 +766,41 @@
                 var doc = new jsPDF();
                 
                 // Header
-                doc.setFontSize(24);
+                doc.setFontSize(20);
                 doc.setTextColor(25, 34, 75);
-                doc.text('Pricing Quote', 20, 30);
+                doc.text('Pricing Quote', 20, 25);
                 
-                // Client Info
-                doc.setFontSize(16);
-                doc.setTextColor(0, 0, 0);
-                doc.text('Client: ' + calculationData.clientName, 20, 50);
-                if (calculationData.clientEmail) {
-                    doc.text('Email: ' + calculationData.clientEmail, 20, 65);
-                }
-                doc.text('Date: ' + new Date().toLocaleDateString(), 20, 80);
-                
-                // Tier Info
-                doc.setFontSize(18);
-                doc.setTextColor(42, 98, 173);
-                doc.text('Selected Tier: ' + calculationData.tierName, 20, 105);
-                
-                // Details
+                // Company Info
                 doc.setFontSize(12);
                 doc.setTextColor(0, 0, 0);
-                doc.text('Transactions: ' + calculationData.transactions.toLocaleString(), 20, 125);
-                doc.text('Statements: ' + calculationData.statements.toLocaleString(), 20, 140);
+                doc.text('Company: ' + calculationData.companyName, 20, 40);
+                doc.text('Email: ' + calculationData.companyEmail, 20, 50);
+                doc.text('Date: ' + new Date().toLocaleDateString(), 20, 60);
                 
-                // Costs
-                doc.setFontSize(14);
-                doc.text('Cost Breakdown:', 20, 165);
+                // Client Details
                 doc.setFontSize(12);
-                doc.text('Transaction Costs: $' + calculationData.transactionCost.toLocaleString(), 30, 180);
-                doc.text('Statement Costs: $' + calculationData.statementCost.toLocaleString(), 30, 195);
-                doc.text('Subtotal: $' + calculationData.subtotal.toLocaleString(), 30, 210);
-                doc.text('Discount (20%): -$' + calculationData.discountAmount.toLocaleString(), 30, 225);
+                doc.setTextColor(0, 0, 0);
+                var yPos = 75;
                 
-                // Total
+                doc.text('Client Details:', 20, yPos);
+                yPos += 10;
+                
+                calculationData.clients.forEach(function(client) {
+                    doc.text(client.name + ' (' + client.tierName + '):', 25, yPos);
+                    yPos += 8;
+                    doc.text('  Transactions: ' + client.transactions.toLocaleString() + ' | Statements: ' + client.statements.toLocaleString(), 30, yPos);
+                    yPos += 8;
+                    doc.text('  Total Cost: R' + client.totalCost.toLocaleString(), 30, yPos);
+                    yPos += 12;
+                });
+                
+                // Grand Total
                 doc.setFontSize(16);
                 doc.setTextColor(25, 34, 75);
-                doc.text('Total Cost: $' + calculationData.totalCost.toLocaleString(), 30, 245);
+                doc.text('Grand Total: R' + calculationData.totals.grandTotal.toLocaleString(), 20, yPos + 10);
                 
                 // Save PDF
-                doc.save('pricing-quote-' + calculationData.clientName.replace(/[^a-zA-Z0-9]/g, '-') + '.pdf');
+                doc.save('pricing-quote-' + calculationData.companyName.replace(/[^a-zA-Z0-9]/g, '-') + '.pdf');
                 showStatus('PDF downloaded successfully!', 'success');
             } catch (error) {
                 showStatus('Error generating PDF. Please try again.', 'error');
@@ -531,7 +808,7 @@
         }
 
         function submitData() {
-            if (!calculationData.clientName) {
+            if (!calculationData.companyName) {
                 showStatus('Please calculate costs first', 'error');
                 return;
             }
@@ -546,20 +823,27 @@
                 return;
             }
 
-            // Prepare data for Make webhook
+            // Prepare data for Make webhook - structured per quote
             var webhookData = {
-                clientName: calculationData.clientName,
-                clientEmail: calculationData.clientEmail || '',
-                tier: calculationData.tier,
-                tierName: calculationData.tierName,
-                transactions: calculationData.transactions,
-                statements: calculationData.statements,
-                transactionCost: calculationData.transactionCost,
-                statementCost: calculationData.statementCost,
-                subtotal: calculationData.subtotal,
-                discountAmount: calculationData.discountAmount,
-                totalCost: calculationData.totalCost,
+                companyName: calculationData.companyName,
+                companyEmail: calculationData.companyEmail,
                 dateSubmitted: new Date().toISOString(),
+                quotes: calculationData.clients.map(function(client, index) {
+                    return {
+                        quoteId: index + 1,
+                        clientName: client.name,
+                        tier: client.tier,
+                        tierName: client.tierName,
+                        transactions: client.transactions,
+                        statements: client.statements,
+                        transactionCost: client.transactionCost,
+                        statementCost: client.statementCost,
+                        subtotal: client.subtotal,
+                        discountAmount: client.discountAmount,
+                        totalCost: client.totalCost
+                    };
+                }),
+                totals: calculationData.totals,
                 timestamp: calculationData.timestamp
             };
 
@@ -576,7 +860,7 @@
                 if (!response.ok) {
                     throw new Error('Make webhook request failed with status: ' + response.status);
                 }
-                return response.text(); // Make webhooks often return text, not JSON
+                return response.text();
             })
             .then(data => {
                 showStatus('Quote submitted successfully via Make!', 'success');
@@ -601,7 +885,7 @@
 
         // Initialize calculator when page loads
         window.onload = function() {
-            selectTier('gold');
+            generateClientTable();
         };
     </script>
 </body>
