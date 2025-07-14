@@ -569,10 +569,10 @@
 
         var calculationData = {};
 
-        function validateEmail(email) {
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+R/;
-            return emailRegex.test(email);
-        }
+   function validateEmail(email) {
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
 
         function generateClientTable() {
             var numClients = parseInt(document.getElementById('num-clients').value) || 1;
