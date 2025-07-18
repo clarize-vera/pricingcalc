@@ -475,45 +475,33 @@
                     <h4>Gold Tier</h4>
                     <div class="tier-details">
                         <span>Per Transaction:</span>
-                        <span>R26</span>
+                        <span>R22</span>
                     </div>
                     <div class="tier-details">
                         <span>Supplier Recon to Statement:</span>
-                        <span>R160</span>
-                    </div>
-                    <div class="tier-details">
-                        <span>Engine Room Fee Discount:</span>
-                        <span class="savings">-20%</span>
+                        <span>R130</span>
                     </div>
                 </div>
                 <div class="tier-card silver">
                     <h4>Silver Tier</h4>
                     <div class="tier-details">
                         <span>Per Transaction:</span>
-                        <span>R22</span>
+                        <span>R18</span>
                     </div>
                     <div class="tier-details">
                         <span>Supplier Recon to Statement:</span>
-                        <span>R160</span>
-                    </div>
-                    <div class="tier-details">
-                        <span>Engine Room Fee Discount:</span>
-                        <span class="savings">-20%</span>
+                        <span>R130</span>
                     </div>
                 </div>
                 <div class="tier-card bronze">
                     <h4>Bronze Tier</h4>
                     <div class="tier-details">
                         <span>Per Transaction:</span>
-                        <span>R18</span>
+                        <span>R14</span>
                     </div>
                     <div class="tier-details">
                         <span>Supplier Recon to Statement:</span>
-                        <span>R160</span>
-                    </div>
-                    <div class="tier-details">
-                        <span>Engine Room Fee Discount:</span>
-                        <span class="savings">-20%</span>
+                        <span>R130</span>
                     </div>
                 </div>
             </div>
@@ -527,8 +515,6 @@
                         <th>Tier</th>
                         <th>Transaction Cost</th>
                         <th>Supplier Recon Cost</th>
-                        <th>Subtotal</th>
-                        <th>Discount</th>
                         <th>Total</th>
                     </tr>
                 </thead>
@@ -549,21 +535,18 @@
         var tiers = {
             gold: {
                 name: 'Gold Tier',
-                transaction: 26,
-                statement: 160,
-                discount: 0.20
+                transaction: 22,
+                statement: 130,
             },
             silver: {
                 name: 'Silver Tier',
-                transaction: 22,
-                statement: 160,
-                discount: 0.20
+                transaction: 18,
+                statement: 130,
             },
             bronze: {
                 name: 'Bronze Tier',
-                transaction: 18,
-                statement: 160,
-                discount: 0.20
+                transaction: 14,
+                statement: 130,
             }
         };
 
@@ -654,9 +637,7 @@
                 var tierData = tiers[clientTier];
                 var transactionCost = transactions * tierData.transaction;
                 var statementCost = statements * tierData.statement;
-                var subtotal = transactionCost + statementCost;
-                var discountAmount = subtotal * tierData.discount;
-                var totalCost = subtotal - discountAmount;
+                var totalCost = transactionCost + statementCost;
                 
                 clientsData.push({
                     name: clientName,
@@ -666,8 +647,6 @@
                     statements: statements,
                     transactionCost: transactionCost,
                     statementCost: statementCost,
-                    subtotal: subtotal,
-                    discountAmount: discountAmount,
                     totalCost: totalCost
                 });
             }
@@ -690,13 +669,7 @@
                 return sum + client.statementCost;
             }, 0);
             
-            var totalSubtotal = clientsData.reduce(function(sum, client) {
-                return sum + client.subtotal;
-            }, 0);
             
-            var totalDiscountAmount = clientsData.reduce(function(sum, client) {
-                return sum + client.discountAmount;
-            }, 0);
             
             // Store calculation data
             calculationData = {
@@ -706,8 +679,6 @@
                 totals: {
                     transactionCost: totalTransactionCost,
                     statementCost: totalStatementCost,
-                    subtotal: totalSubtotal,
-                    discountAmount: totalDiscountAmount,
                     grandTotal: grandTotal
                 },
                 timestamp: new Date().toISOString()
@@ -733,8 +704,6 @@
                     <td><span class="tier-badge ${client.tier}">${client.tier}</span></td>
                     <td>R${client.transactionCost.toLocaleString()}</td>
                     <td>R${client.statementCost.toLocaleString()}</td>
-                    <td>R${client.subtotal.toLocaleString()}</td>
-                    <td class="savings">-R${client.discountAmount.toLocaleString()}</td>
                     <td><strong>R${client.totalCost.toLocaleString()}</strong></td>
                 `;
                 resultsBody.appendChild(row);
@@ -748,8 +717,6 @@
                 <td><strong>-</strong></td>
                 <td><strong>R${totals.transactionCost.toLocaleString()}</strong></td>
                 <td><strong>R${totals.statementCost.toLocaleString()}</strong></td>
-                <td><strong>R${totals.subtotal.toLocaleString()}</strong></td>
-                <td class="savings"><strong>-R${totals.discountAmount.toLocaleString()}</strong></td>
                 <td><strong>R${totals.grandTotal.toLocaleString()}</strong></td>
             `;
             resultsBody.appendChild(totalRow);
@@ -774,8 +741,6 @@
                         client.statements,
                         client.transactionCost,
                         client.statementCost,
-                        client.subtotal,
-                        client.discountAmount,
                         client.totalCost
                     ];
                     csvContent += row.join(',') + '\n';
@@ -789,8 +754,6 @@
                     calculationData.clients.reduce(function(sum, client) { return sum + client.statements; }, 0),
                     calculationData.totals.transactionCost,
                     calculationData.totals.statementCost,
-                    calculationData.totals.subtotal,
-                    calculationData.totals.discountAmount,
                     calculationData.totals.grandTotal
                 ];
                 csvContent += totalRow.join(',') + '\n';
@@ -843,8 +806,6 @@
                         statements: client.statements,
                         transactionCost: client.transactionCost,
                         statementCost: client.statementCost,
-                        subtotal: client.subtotal,
-                        discountAmount: client.discountAmount,
                         totalCost: client.totalCost
                     };
                 }),
