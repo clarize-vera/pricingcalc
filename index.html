@@ -152,17 +152,17 @@
         }
 
         .tier-select option[value="gold"] {
-            background: #19224b;
+            background: #202c62;
             color: white;
         }
 
         .tier-select option[value="silver"] {
-            background: #2a62ad;
+            background: #2b62ae;
             color: white;
         }
 
         .tier-select option[value="bronze"] {
-            background: #8b4513;
+            background: #7fbfe9;
             color: white;
         }
 
@@ -297,15 +297,15 @@
         }
 
         .tier-card.gold {
-            border-color: #19224b;
+            border-color: #202c62;
         }
 
         .tier-card.silver {
-            border-color: #2a62ad;
+            border-color: #2b62ae;
         }
 
         .tier-card.bronze {
-            border-color: #8b4513;
+            border-color: #7fbfe9;
         }
 
         .tier-card h4 {
@@ -314,15 +314,15 @@
         }
 
         .tier-card.gold h4 {
-            color: #19224b;
+            color: #202c62;
         }
 
         .tier-card.silver h4 {
-            color: #2a62ad;
+            color: #2b62ae;
         }
 
         .tier-card.bronze h4 {
-            color: #8b4513;
+            color: #7fbfe9;
         }
 
         .tier-details {
@@ -335,6 +335,101 @@
 
         .tier-details:last-child {
             margin-bottom: 0;
+        }
+
+        /* Comparison Table Styles */
+        .comparison-table-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table-container h3 {
+            color: #19224b;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .comparison-table th {
+            background: #f7fafc;
+            color: #19224b;
+            font-weight: 600;
+        }
+
+        .comparison-table th:first-child {
+            text-align: left;
+            background: white;
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        .comparison-table .tier-header.gold {
+            background: #202c62;
+            color: white;
+        }
+
+        .comparison-table .tier-header.silver {
+            background: #2b62ae;
+            color: white;
+        }
+
+        .comparison-table .tier-header.bronze {
+            background: #7fbfe9;
+            color: white;
+        }
+
+        .comparison-table .feature-cell {
+            text-align: left;
+            font-weight: 500;
+            background: #f8f9fa;
+        }
+
+        .comparison-table .checkmark {
+            color: #38a169;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .comparison-table .dash {
+            color: #a0aec0;
+            font-size: 1.2rem;
+        }
+
+        .comparison-table .frequency-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .comparison-table .frequency-badge.daily {
+            background: #202c62;
+        }
+
+        .comparison-table .frequency-badge.weekly {
+            background: #2b62ae;
+        }
+
+        .comparison-table .frequency-badge.monthly {
+            background: #7fbfe9;
         }
 
         .status-message {
@@ -370,15 +465,15 @@
         }
 
         .tier-badge.gold {
-            background: #19224b;
+            background: #202c62;
         }
 
         .tier-badge.silver {
-            background: #2a62ad;
+            background: #2b62ae;
         }
 
         .tier-badge.bronze {
-            background: #8b4513;
+            background: #7fbfe9;
         }
 
         @media (max-width: 768px) {
@@ -410,6 +505,15 @@
 
             .tier-pricing {
                 grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 0.8rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px;
             }
         }
     </style>
@@ -505,6 +609,71 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-table-container">
+            <h3>Service Tier Comparison</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="tier-header gold">Gold</th>
+                        <th class="tier-header silver">Silver</th>
+                        <th class="tier-header bronze">Bronze</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-cell">Debt subscription included</td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="dash">-</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-cell">Bank processing frequency</td>
+                        <td><span class="frequency-badge daily">Daily</span></td>
+                        <td><span class="frequency-badge weekly">Weekly</span></td>
+                        <td><span class="frequency-badge monthly">Monthly</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-cell">Client missing info requests</td>
+                        <td><span class="frequency-badge weekly">Weekly</span></td>
+                        <td><span class="frequency-badge weekly">Weekly</span></td>
+                        <td><span class="frequency-badge monthly">Monthly</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-cell">Transaction descriptions</td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-cell">Bank balance recon to statement</td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-cell">Month-end review</td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-cell">VAT reconciliation</td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-cell">Evidenced Balance Sheet review</td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="checkmark">✓</span></td>
+                        <td><span class="dash">-</span></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="results" id="results">
