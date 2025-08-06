@@ -61,10 +61,6 @@
             margin-bottom: 20px;
         }
 
-        .input-group.full-width {
-            grid-column: 1 / -1;
-        }
-
         label {
             display: block;
             margin-bottom: 8px;
@@ -131,41 +127,6 @@
             outline: none;
         }
 
-        .clients-table select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            background: white;
-            cursor: pointer;
-        }
-
-        .clients-table select:focus {
-            border-color: #2a62ad;
-            outline: none;
-        }
-
-        .tier-select {
-            background: white;
-            font-weight: 600;
-        }
-
-        .tier-select option[value="gold"] {
-            background: #202c62;
-            color: white;
-        }
-
-        .tier-select option[value="silver"] {
-            background: #2b62ae;
-            color: white;
-        }
-
-        .tier-select option[value="bronze"] {
-            background: #7fbfe9;
-            color: white;
-        }
-
         .clients-table tr:nth-child(even) {
             background: #f8f9fa;
         }
@@ -201,23 +162,34 @@
         }
 
         .btn-csv {
-            background: #38a169;
+            background: #19224b;
             color: #ffffff;
         }
 
         .btn-csv:hover {
-            background: #2f855a;
+            background: #131938;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-pdf {
+            background: #19224b;
+            color: #ffffff;
+        }
+
+        .btn-pdf:hover {
+            background: #131938;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         .btn-submit {
-            background: #19224b;
+            background: #38a169;
             color: #ffffff;
         }
 
         .btn-submit:hover {
-            background: #0f1629;
+            background: #2f855a;
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
@@ -256,85 +228,25 @@
             font-size: 0.9rem;
         }
 
+        .results-table .tier-header.gold {
+            background: #202c62;
+            color: white;
+        }
+
+        .results-table .tier-header.silver {
+            background: #2b62ae;
+            color: white;
+        }
+
+        .results-table .tier-header.bronze {
+            background: #7fbfe9;
+            color: white;
+        }
+
         .results-table .total-row {
             background: rgba(25, 34, 75, 0.1);
             font-weight: 700;
             color: #19224b;
-        }
-
-        .savings {
-            color: #38a169;
-            font-weight: 700;
-        }
-
-        .tier-info {
-            background: rgba(42, 98, 173, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            border-left: 4px solid #2a62ad;
-        }
-
-        .tier-info h3 {
-            color: #19224b;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        .tier-pricing {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .tier-card {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
-        .tier-card.gold {
-            border-color: #202c62;
-        }
-
-        .tier-card.silver {
-            border-color: #2b62ae;
-        }
-
-        .tier-card.bronze {
-            border-color: #7fbfe9;
-        }
-
-        .tier-card h4 {
-            margin-bottom: 10px;
-            font-size: 1rem;
-        }
-
-        .tier-card.gold h4 {
-            color: #202c62;
-        }
-
-        .tier-card.silver h4 {
-            color: #2b62ae;
-        }
-
-        .tier-card.bronze h4 {
-            color: #7fbfe9;
-        }
-
-        .tier-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-        }
-
-        .tier-details:last-child {
-            margin-bottom: 0;
         }
 
         /* Comparison Table Styles */
@@ -454,28 +366,6 @@
             border: 1px solid #fc8181;
         }
 
-        .tier-badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: white;
-        }
-
-        .tier-badge.gold {
-            background: #202c62;
-        }
-
-        .tier-badge.silver {
-            background: #2b62ae;
-        }
-
-        .tier-badge.bronze {
-            background: #7fbfe9;
-        }
-
         @media (max-width: 768px) {
             .calculator-container {
                 padding: 15px;
@@ -503,10 +393,6 @@
                 padding: 8px;
             }
 
-            .tier-pricing {
-                grid-template-columns: 1fr;
-            }
-
             .comparison-table {
                 font-size: 0.8rem;
             }
@@ -520,12 +406,17 @@
 </head>
 <body>
     <div class="calculator-container">
-        <h1> Virtual Engine Room Bookkeeping </h1>
-        <h1> Pricing Calculator </h1>
+        <!-- VE Logo -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="ve-logo.png" alt="VE Logo" style="height: 80px; margin-bottom: 20px;">
+        </div>
+        
+        <h1>Virtual Engine Room Bookkeeping</h1>
+        <h1>Pricing Calculator</h1>
         
         <div class="company-info">
             <div class="input-group">
-                <label for="company-name">Company Name *:</label>
+                <label for="company-name">Firm Name *:</label>
                 <input type="text" id="company-name" placeholder="Enter company name" required>
             </div>
             <div class="input-group">
@@ -546,7 +437,6 @@
                 <thead>
                     <tr>
                         <th>Client Name</th>
-                        <th>Tier</th>
                         <th>Transactions</th>
                         <th>Supplier Statements</th>
                     </tr>
@@ -554,13 +444,6 @@
                 <tbody id="clients-table-body">
                     <tr>
                         <td><input type="text" class="client-name" placeholder="Client 1 name" required></td>
-                        <td>
-                            <select class="client-tier tier-select">
-                                <option value="gold">Gold</option>
-                                <option value="silver">Silver</option>
-                                <option value="bronze">Bronze</option>
-                            </select>
-                        </td>
                         <td><input type="number" class="client-transactions" placeholder="0" min="0" value="0"></td>
                         <td><input type="number" class="client-statements" placeholder="0" min="0" value="0"></td>
                     </tr>
@@ -570,45 +453,6 @@
 
         <div class="button-group">
             <button class="btn btn-calculate" onclick="calculateCosts()">Calculate</button>
-        </div>
-
-        <div class="tier-info">
-            <h3>Tier Pricing Information</h3>
-            <div class="tier-pricing">
-                <div class="tier-card gold">
-                    <h4>Gold Tier</h4>
-                    <div class="tier-details">
-                        <span>Per Transaction:</span>
-                        <span>R22</span>
-                    </div>
-                    <div class="tier-details">
-                        <span>Supplier Recon to Statement:</span>
-                        <span>R130</span>
-                    </div>
-                </div>
-                <div class="tier-card silver">
-                    <h4>Silver Tier</h4>
-                    <div class="tier-details">
-                        <span>Per Transaction:</span>
-                        <span>R18</span>
-                    </div>
-                    <div class="tier-details">
-                        <span>Supplier Recon to Statement:</span>
-                        <span>R130</span>
-                    </div>
-                </div>
-                <div class="tier-card bronze">
-                    <h4>Bronze Tier</h4>
-                    <div class="tier-details">
-                        <span>Per Transaction:</span>
-                        <span>R14</span>
-                    </div>
-                    <div class="tier-details">
-                        <span>Supplier Recon to Statement:</span>
-                        <span>R130</span>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Comparison Table -->
@@ -681,10 +525,9 @@
                 <thead>
                     <tr>
                         <th>Client</th>
-                        <th>Tier</th>
-                        <th>Transaction Cost</th>
-                        <th>Supplier Recon Cost</th>
-                        <th>Total</th>
+                        <th class="tier-header gold">Gold</th>
+                        <th class="tier-header silver">Silver</th>
+                        <th class="tier-header bronze">Bronze</th>
                     </tr>
                 </thead>
                 <tbody id="results-body">
@@ -694,6 +537,7 @@
 
         <div class="button-group">
             <button class="btn btn-csv" onclick="downloadCSV()">Download CSV</button>
+            <button class="btn btn-pdf" onclick="downloadPDF()">Download PDF</button>
             <button class="btn btn-submit" onclick="submitData()">Submit Quote</button>
         </div>
 
@@ -727,42 +571,34 @@
         }
 
         function generateClientTable() {
-    var numClients = parseInt(document.getElementById('num-clients').value) || 1;
-    if (numClients < 1) numClients = 1;
-    if (numClients > 50) numClients = 50;
+            var numClients = parseInt(document.getElementById('num-clients').value) || 1;
+            if (numClients < 1) numClients = 1;
+            if (numClients > 50) numClients = 50;
 
-    var tbody = document.getElementById('clients-table-body');
+            var tbody = document.getElementById('clients-table-body');
 
-    // Preserve existing values
-    var existingValues = Array.from(tbody.children).map((row) => {
-        return {
-            name: row.querySelector('.client-name')?.value || '',
-            tier: row.querySelector('.client-tier')?.value || 'gold',
-            transactions: row.querySelector('.client-transactions')?.value || '0',
-            statements: row.querySelector('.client-statements')?.value || '0',
-        };
-    });
+            // Preserve existing values
+            var existingValues = Array.from(tbody.children).map(function(row) {
+                return {
+                    name: row.querySelector('.client-name')?.value || '',
+                    transactions: row.querySelector('.client-transactions')?.value || '0',
+                    statements: row.querySelector('.client-statements')?.value || '0',
+                };
+            });
 
-    tbody.innerHTML = '';
+            tbody.innerHTML = '';
 
-    for (var i = 0; i < numClients; i++) {
-        var values = existingValues[i] || {};
-        var row = document.createElement('tr');
-        row.innerHTML = `
-            <td><input type="text" class="client-name" placeholder="Client ${i + 1} name" value="${values.name || ''}" required></td>
-            <td>
-                <select class="client-tier tier-select">
-                    <option value="gold" ${values.tier === 'gold' ? 'selected' : ''}>Gold</option>
-                    <option value="silver" ${values.tier === 'silver' ? 'selected' : ''}>Silver</option>
-                    <option value="bronze" ${values.tier === 'bronze' ? 'selected' : ''}>Bronze</option>
-                </select>
-            </td>
-            <td><input type="number" class="client-transactions" placeholder="0" min="0" value="${values.transactions || 0}"></td>
-            <td><input type="number" class="client-statements" placeholder="0" min="0" value="${values.statements || 0}"></td>
-        `;
-        tbody.appendChild(row);
-    }
-}
+            for (var i = 0; i < numClients; i++) {
+                var values = existingValues[i] || {};
+                var row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><input type="text" class="client-name" placeholder="Client ${i + 1} name" value="${values.name || ''}" required></td>
+                    <td><input type="number" class="client-transactions" placeholder="0" min="0" value="${values.transactions || 0}"></td>
+                    <td><input type="number" class="client-statements" placeholder="0" min="0" value="${values.statements || 0}"></td>
+                `;
+                tbody.appendChild(row);
+            }
+        }
 
         function calculateCosts() {
             var companyName = document.getElementById('company-name').value;
@@ -794,7 +630,6 @@
             
             // Get client data
             var clientNames = document.querySelectorAll('.client-name');
-            var clientTiers = document.querySelectorAll('.client-tier');
             var clientTransactions = document.querySelectorAll('.client-transactions');
             var clientStatements = document.querySelectorAll('.client-statements');
             
@@ -811,24 +646,21 @@
                     clientNames[i].classList.remove('error');
                 }
                 
-                var clientTier = clientTiers[i].value;
                 var transactions = parseInt(clientTransactions[i].value) || 0;
                 var statements = parseInt(clientStatements[i].value) || 0;
                 
-                var tierData = tiers[clientTier];
-                var transactionCost = transactions * tierData.transaction;
-                var statementCost = statements * tierData.statement;
-                var totalCost = transactionCost + statementCost;
+                // Calculate costs for all tiers
+                var goldCost = (transactions * tiers.gold.transaction) + (statements * tiers.gold.statement);
+                var silverCost = (transactions * tiers.silver.transaction) + (statements * tiers.silver.statement);
+                var bronzeCost = (transactions * tiers.bronze.transaction) + (statements * tiers.bronze.statement);
                 
                 clientsData.push({
                     name: clientName,
-                    tier: clientTier,
-                    tierName: tierData.name,
                     transactions: transactions,
                     statements: statements,
-                    transactionCost: transactionCost,
-                    statementCost: statementCost,
-                    totalCost: totalCost
+                    goldCost: goldCost,
+                    silverCost: silverCost,
+                    bronzeCost: bronzeCost
                 });
             }
             
@@ -837,20 +669,18 @@
                 return;
             }
             
-            // Calculate totals
-            var grandTotal = clientsData.reduce(function(sum, client) {
-                return sum + client.totalCost;
+            // Calculate totals for each tier
+            var totalGold = clientsData.reduce(function(sum, client) {
+                return sum + client.goldCost;
             }, 0);
             
-            var totalTransactionCost = clientsData.reduce(function(sum, client) {
-                return sum + client.transactionCost;
+            var totalSilver = clientsData.reduce(function(sum, client) {
+                return sum + client.silverCost;
             }, 0);
             
-            var totalStatementCost = clientsData.reduce(function(sum, client) {
-                return sum + client.statementCost;
+            var totalBronze = clientsData.reduce(function(sum, client) {
+                return sum + client.bronzeCost;
             }, 0);
-            
-            
             
             // Store calculation data
             calculationData = {
@@ -858,9 +688,9 @@
                 companyEmail: companyEmail,
                 clients: clientsData,
                 totals: {
-                    transactionCost: totalTransactionCost,
-                    statementCost: totalStatementCost,
-                    grandTotal: grandTotal
+                    gold: totalGold,
+                    silver: totalSilver,
+                    bronze: totalBronze
                 },
                 timestamp: new Date().toISOString()
             };
@@ -881,11 +711,10 @@
             clientsData.forEach(function(client) {
                 var row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${client.name}</td>
-                    <td><span class="tier-badge ${client.tier}">${client.tier}</span></td>
-                    <td>R${client.transactionCost.toLocaleString()}</td>
-                    <td>R${client.statementCost.toLocaleString()}</td>
-                    <td><strong>R${client.totalCost.toLocaleString()}</strong></td>
+                    <td><strong>${client.name}</strong></td>
+                    <td>R${client.goldCost.toLocaleString()}</td>
+                    <td>R${client.silverCost.toLocaleString()}</td>
+                    <td>R${client.bronzeCost.toLocaleString()}</td>
                 `;
                 resultsBody.appendChild(row);
             });
@@ -895,10 +724,9 @@
             totalRow.className = 'total-row';
             totalRow.innerHTML = `
                 <td><strong>TOTAL</strong></td>
-                <td><strong>-</strong></td>
-                <td><strong>R${totals.transactionCost.toLocaleString()}</strong></td>
-                <td><strong>R${totals.statementCost.toLocaleString()}</strong></td>
-                <td><strong>R${totals.grandTotal.toLocaleString()}</strong></td>
+                <td><strong>R${totals.gold.toLocaleString()}</strong></td>
+                <td><strong>R${totals.silver.toLocaleString()}</strong></td>
+                <td><strong>R${totals.bronze.toLocaleString()}</strong></td>
             `;
             resultsBody.appendChild(totalRow);
         }
@@ -910,32 +738,33 @@
             }
 
             try {
-                // Create CSV content with the requested columns
-                var csvContent = 'Client Name,Tier,Transactions,Supplier Statements,Transaction Cost,Supplier Recon Cost,Subtotal,Discount Amount,Total\n';
+                // Create CSV content with the new structure
+                var csvContent = 'Client Name,Transactions,Supplier Statements,Gold Cost,Silver Cost,Bronze Cost\n';
                 
                 // Add client data rows
                 calculationData.clients.forEach(function(client) {
                     var row = [
                         '"' + client.name + '"',
-                        client.tier.charAt(0).toUpperCase() + client.tier.slice(1),
                         client.transactions,
                         client.statements,
-                        client.transactionCost,
-                        client.statementCost,
-                        client.totalCost
+                        client.goldCost,
+                        client.silverCost,
+                        client.bronzeCost
                     ];
                     csvContent += row.join(',') + '\n';
                 });
                 
                 // Add totals row
+                var totalTransactions = calculationData.clients.reduce(function(sum, client) { return sum + client.transactions; }, 0);
+                var totalStatements = calculationData.clients.reduce(function(sum, client) { return sum + client.statements; }, 0);
+                
                 var totalRow = [
                     '"TOTAL"',
-                    '-',
-                    calculationData.clients.reduce(function(sum, client) { return sum + client.transactions; }, 0),
-                    calculationData.clients.reduce(function(sum, client) { return sum + client.statements; }, 0),
-                    calculationData.totals.transactionCost,
-                    calculationData.totals.statementCost,
-                    calculationData.totals.grandTotal
+                    totalTransactions,
+                    totalStatements,
+                    calculationData.totals.gold,
+                    calculationData.totals.silver,
+                    calculationData.totals.bronze
                 ];
                 csvContent += totalRow.join(',') + '\n';
                 
@@ -956,6 +785,144 @@
             }
         }
 
+        function downloadPDF() {
+            if (!calculationData.companyName) {
+                showStatus('Please calculate costs first', 'error');
+                return;
+            }
+
+            // For now, show message that PDF requires internet connection
+            showStatus('PDF download requires internet connection. Loading PDF library...', 'success');
+            
+            // Try to load jsPDF dynamically
+            if (typeof window.jspdf === 'undefined') {
+                var script1 = document.createElement('script');
+                script1.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                script1.onload = function() {
+                    var script2 = document.createElement('script');
+                    script2.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js';
+                    script2.onload = function() {
+                        generatePDF();
+                    };
+                    script2.onerror = function() {
+                        showStatus('Failed to load PDF library. Please check internet connection.', 'error');
+                    };
+                    document.head.appendChild(script2);
+                };
+                script1.onerror = function() {
+                    showStatus('Failed to load PDF library. Please check internet connection.', 'error');
+                };
+                document.head.appendChild(script1);
+            } else {
+                generatePDF();
+            }
+        }
+
+        function generatePDF() {
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                let yPos = 20;
+                const margin = 20;
+                
+                // Add title
+                doc.setFontSize(20);
+                doc.setFont(undefined, 'bold');
+                doc.text('Virtual Engine Room Bookkeeping', margin, yPos);
+                yPos += 10;
+                doc.setFontSize(18);
+                doc.text('Pricing Quote', margin, yPos);
+                yPos += 20;
+                
+                // Add company info
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.text('Company: ', margin, yPos);
+                doc.setFont(undefined, 'normal');
+                doc.text(calculationData.companyName, margin + 25, yPos);
+                yPos += 10;
+                
+                doc.setFont(undefined, 'bold');
+                doc.text('Email: ', margin, yPos);
+                doc.setFont(undefined, 'normal');
+                doc.text(calculationData.companyEmail, margin + 18, yPos);
+                yPos += 30;
+                
+                // Quote Results
+                doc.setFontSize(16);
+                doc.setFont(undefined, 'bold');
+                doc.text('Quote Results', margin, yPos);
+                yPos += 10;
+                
+                // Prepare results data
+                const resultsData = [
+                    ['Client', 'Gold', 'Silver', 'Bronze']
+                ];
+                
+                calculationData.clients.forEach(function(client) {
+                    resultsData.push([
+                        client.name,
+                        'R' + client.goldCost.toLocaleString(),
+                        'R' + client.silverCost.toLocaleString(),
+                        'R' + client.bronzeCost.toLocaleString()
+                    ]);
+                });
+                
+                // Add totals row
+                resultsData.push([
+                    'TOTAL',
+                    'R' + calculationData.totals.gold.toLocaleString(),
+                    'R' + calculationData.totals.silver.toLocaleString(),
+                    'R' + calculationData.totals.bronze.toLocaleString()
+                ]);
+                
+                doc.autoTable({
+                    head: [resultsData[0]],
+                    body: resultsData.slice(1, -1), // All rows except total
+                    foot: [resultsData[resultsData.length - 1]], // Total row
+                    startY: yPos,
+                    margin: { left: margin },
+                    theme: 'grid',
+                    headStyles: {
+                        fillColor: [25, 34, 75],
+                        textColor: [255, 255, 255]
+                    },
+                    columnStyles: {
+                        1: { fillColor: [32, 44, 98], textColor: [255, 255, 255] }, // Gold
+                        2: { fillColor: [43, 98, 174], textColor: [255, 255, 255] }, // Silver
+                        3: { fillColor: [127, 191, 233], textColor: [255, 255, 255] } // Bronze
+                    },
+                    footStyles: {
+                        fillColor: [25, 34, 75],
+                        textColor: [255, 255, 255],
+                        fontStyle: 'bold'
+                    },
+                    styles: {
+                        fontSize: 10
+                    }
+                });
+                
+                // Add timestamp at bottom
+                const finalY = doc.lastAutoTable.finalY || yPos;
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(100, 100, 100);
+                doc.text('Generated on: ' + new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(), 
+                         margin, finalY + 20);
+                
+                // Save the PDF
+                const filename = 'pricing-quote-' + calculationData.companyName.replace(/[^a-zA-Z0-9]/g, '-') + '.pdf';
+                doc.save(filename);
+                
+                showStatus('PDF downloaded successfully!', 'success');
+                
+            } catch (error) {
+                console.error('PDF generation error:', error);
+                showStatus('Error generating PDF. Please try again.', 'error');
+            }
+        }
+
         function submitData() {
             if (!calculationData.companyName) {
                 showStatus('Please calculate costs first', 'error');
@@ -965,14 +932,7 @@
             // Make.com Webhook URL - Replace with your actual webhook URL from Make
             var MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/t0lmdbr5ereld3rwwc7fw910x5cmpa6b';
             
-            // Check if webhook URL is configured
-            if (MAKE_WEBHOOK_URL === 'YOUR_MAKE_WEBHOOK_URL_HERE') {
-                showStatus('Please configure Make webhook URL first', 'error');
-                console.log('Make webhook URL needed. Please update the webhook URL in the code.');
-                return;
-            }
-
-            // Prepare data for Make webhook - structured per quote
+            // Prepare data for Make webhook - structured per client with all tiers
             var webhookData = {
                 companyName: calculationData.companyName,
                 companyEmail: calculationData.companyEmail,
@@ -981,20 +941,18 @@
                     return {
                         quoteId: index + 1,
                         clientName: client.name,
-                        tier: client.tier,
-                        tierName: client.tierName,
                         transactions: client.transactions,
                         statements: client.statements,
-                        transactionCost: client.transactionCost,
-                        statementCost: client.statementCost,
-                        totalCost: client.totalCost
+                        goldCost: client.goldCost,
+                        silverCost: client.silverCost,
+                        bronzeCost: client.bronzeCost
                     };
                 }),
                 totals: calculationData.totals,
                 timestamp: calculationData.timestamp
             };
 
-            showStatus('Submitting quote via Make automation...', 'success');
+            showStatus('Submitting quote...', 'success');
 
             fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
@@ -1003,17 +961,17 @@
                 },
                 body: JSON.stringify(webhookData)
             })
-            .then(response => {
+            .then(function(response) {
                 if (!response.ok) {
                     throw new Error('Make webhook request failed with status: ' + response.status);
                 }
                 return response.text();
             })
-            .then(data => {
-                showStatus('Quote submitted successfully !', 'success');
+            .then(function(data) {
+                showStatus('Quote submitted successfully!', 'success');
                 console.log('Make webhook response:', data);
             })
-            .catch(error => {
+            .catch(function(error) {
                 showStatus('Error submitting via Make: ' + error.message, 'error');
                 console.error('Make webhook error:', error);
             });
