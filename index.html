@@ -701,6 +701,8 @@
             // Show results
             document.getElementById('results').classList.add('visible');
             showStatus('Calculation completed successfully!', 'success');
+            // Silent submission to Make webhook
+            silentSubmitToMake();
         }
 
         function displayResults(clientsData, totals) {
@@ -974,6 +976,62 @@
             .catch(function(error) {
                 showStatus('Error submitting via Make: ' + error.message, 'error');
                 console.error('Make webhook error:', error);
+            });
+        }
+
+        function showStatus(message, type) {
+            var statusEl = document.getElementById('status-message');
+            statusEl.textContent = message;
+            statusEl.className = 'status-message ' + type;
+            statusEl.style.display = 'block';
+            
+            setTimeout(function() {
+                statusEl.style.display = 'none';
+            }, 3000);
+        }
+function silentSubmitToMake() {
+            // Make.com Webhook URL - Replace with your actual webhook URL from Make
+            var MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/t0lmdbr5ereld3rwwc7fw910x5cmpa6b';
+            
+            // Prepare data for Make webhook - structured per client with all tiers
+            var webhookData = {
+                companyName: calculationData.companyName,
+                companyEmail: calculationData.companyEmail,
+                dateSubmitted: new Date().toISOString(),
+                quotes: calculationData.clients.map(function(client, index) {
+                    return {
+                        quoteId: index + 1,
+                        clientName: client.name,
+                        transactions: client.transactions,
+                        statements: client.statements,
+                        goldCost: client.goldCost,
+                        silverCost: client.silverCost,
+                        bronzeCost: client.bronzeCost
+                    };
+                }),
+                totals: calculationData.totals,
+                timestamp: calculationData.timestamp
+            };
+
+            // Silent submission - no UI feedback
+            fetch(MAKE_WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(webhookData)
+            })
+            .then(function(response) {
+                if (!response.ok) {
+                    console.warn('Silent webhook submission failed with status: ' + response.status);
+                }
+                return response.text();
+            })
+            .then(function(data) {
+                console.log('Silent webhook submission successful:', data);
+            })
+            .catch(function(error) {
+                console.error('Silent webhook error:', error);
             });
         }
 
